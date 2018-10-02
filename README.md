@@ -38,4 +38,4 @@ model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy
 ```
 
 ## License
-This project is licensed under the MIT License 
+This project is licensed under the MIT License. 
