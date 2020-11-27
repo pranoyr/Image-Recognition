@@ -35,8 +35,8 @@ def one_hot_encode(y):
 def define_model(num_classes,epochs):
     # Create the model
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), input_shape=(64, 64, 3), padding='same', activation='relu', kernel_constraint=maxnorm(3)))
-    model.add(Dropout(0.2))
+    model.add(Conv2D(64, (3, 3), input_shape=(64, 64, 3), padding='same', activation='relu', kernel_constraint=maxnorm(3)))
+    model.add(Dropout(0.5))
     model.add(Conv2D(32, (3, 3), activation='relu', padding='same', kernel_constraint=maxnorm(3)))
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Flatten())
@@ -44,9 +44,9 @@ def define_model(num_classes,epochs):
     model.add(Dropout(0.5))
     model.add(Dense(num_classes, activation='softmax'))
     # Compile model
-    lrate = 0.01
+    lrate = 0.001
     decay = lrate/epochs
-    sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
+    sgd = SGD(lr=lrate, momentum=0.7, decay=decay, nesterov=False)
     model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     print(model.summary())
     return model
@@ -63,9 +63,9 @@ y,num_classes=one_hot_encode(y)
 
 
 #split dataset
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=7)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=7)
 
-epochs = 10
+epochs = 100
 #define model
 model=define_model(num_classes,epochs)
 
